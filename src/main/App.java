@@ -2,7 +2,6 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws Exception {
-
         boolean applicationIsRunning = true;
         Scanner scanner = new Scanner(System.in);
 
@@ -12,31 +11,40 @@ public class App {
             boolean inputIsValid = false;
 
             while (!inputIsValid) {
-                int userAccount =  scanner.nextInt();
+                try {
 
-                switch(userAccount) {
-                    case 1:
-                        // handleAdministrator();
-                        inputIsValid = true;
-                        break;
-                    case 2:
-                        // handlePassenger();
-                        inputIsValid = true;
-                        break;
-                    case 3:
-                        // handleDriver();
-                        inputIsValid = true;
-                        break;
-                    case 4:
-                        // handleManager();
-                        inputIsValid = true;
-                        break;
-                    case 5:
-                        applicationIsRunning = false;
-                        inputIsValid = true;
-                        break;
-                    default:
-                        System.err.println(Error.INVALID_INPUT);
+                    int userAccount =  scanner.nextInt();
+
+                    switch(userAccount) {
+                        case 1:
+                            // handleAdministrator();
+                            inputIsValid = true;
+                            break;
+                        case 2:
+                            Passenger.run();
+                            inputIsValid = true;
+                            break;
+                        case 3:
+                            Driver.run();
+                            inputIsValid = true;
+                            break;
+                        case 4:
+                            // handleManager();
+                            inputIsValid = true;
+                            break;
+                        case 5:
+                            applicationIsRunning = false;
+                            inputIsValid = true;
+                            break;
+                        default:
+                            System.err.println(Error.INVALID_INPUT);
+                    }
+
+                } catch (Exception e) {
+
+                    System.err.println(Error.INVALID_INPUT);
+                    scanner.next();
+                    
                 }
             }
         }
