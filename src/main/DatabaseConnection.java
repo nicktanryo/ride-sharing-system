@@ -1,6 +1,6 @@
 import java.sql.*;
 
-public class DatabaseConnection{
+public class DatabaseConnection extends Object{
     public static Connection connect() {
         String dbAddress = "jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/group69";
         String dbUsername = "Group69";
@@ -21,6 +21,14 @@ public class DatabaseConnection{
         }
 
         return con;
+    }
+
+    public static ResultSet executeQuery(String mysqlStatement)throws SQLException {
+    
+        Connection connection = DatabaseConnection.connect();
+        Statement stmt = connection.createStatement();
+        ResultSet resultSet = stmt.executeQuery(mysqlStatement);
+        return resultSet;
     }
 }
 
