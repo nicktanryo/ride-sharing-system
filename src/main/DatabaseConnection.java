@@ -1,3 +1,4 @@
+import java.net.ConnectException;
 import java.sql.*;
 
 public class DatabaseConnection extends Object{
@@ -16,15 +17,20 @@ public class DatabaseConnection extends Object{
         } catch (ClassNotFoundException e){
             System.out.println(Error.MYSQL_DRIVER_NOT_FOUND);
             System.exit(0);
-        } catch(SQLException e) {
-            System.out.println(e);
-        }
+        } catch(SQLTimeoutException err) {
+            System.out.println(Error.SQL_TIMEOUT_EXCEPTION);
+            System.out.println(err.getMessage());
+            System.exit(0);
+        } catch(SQLException err) {
+            System.out.println(Error.SQL_EXCEPTION);
+            System.out.println(err.getMessage());
+            System.exit(0);
+        } 
 
         return con;
     }
 
-    public static ResultSet executeQuery(String mysqlStatement)throws SQLException {
-    
+    public static ResultSet executeQuery(String mysqlStatement)throws SQLException, SQLTimeoutException {
         Connection connection = DatabaseConnection.connect();
         Statement stmt = connection.createStatement();
         ResultSet resultSet = stmt.executeQuery(mysqlStatement);
