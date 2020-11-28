@@ -17,7 +17,7 @@ public class Main {
 
                     switch(userAccount) {
                         case 1:
-                            // handleAdministrator();
+                            Admin.run();
                             inputIsValid = true;
                             break;
                         case 2:

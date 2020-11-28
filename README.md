@@ -7,6 +7,6 @@ cd src/main/
 ## Compile and run java files
 
 ```
-javac App.java
+javac Main.java
 java -cp .:mysql-connector-java-5.1.47.jar: App
 ```
