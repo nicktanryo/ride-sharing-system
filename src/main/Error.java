@@ -9,6 +9,9 @@ public class Error extends Object{
     // general input
     static String INVALID_INPUT = "[ERROR] Invalid Input";
 
+    // admin
+    static String DUPLICATE_ENTRY = "[ERROR] Duplicate entry with same primary key found";
+
     // passanger
     static String PASSENGER_HAS_OPEN_REQUEST = "[ERROR] Passenger has an open request";
     static String PASSENGER_ID_NOT_FOUND = "[ERROR] Passenger id not found";

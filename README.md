@@ -8,5 +8,5 @@ cd src/main/
 
 ```
 javac Main.java
-java -cp .:mysql-connector-java-5.1.47.jar: App
+java -cp .:mysql-connector-java-5.1.47.jar: Main
 ```
