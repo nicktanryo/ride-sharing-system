@@ -45,4 +45,7 @@ public class Error extends Object{
     static String REQUEST_ID_NOT_FOUND = "[ERROR] Request Id not found";
     static String REQUIREMENT_NOT_MATCH = "[ERROR] Driver's attirbutes do not match request requirements";
     static String REQUEST_HAS_BEEN_TAKEN = "[ERROR] Request has been taken";
+
+    // distance
+    static String MAX_DISTANCE_LOWER = "[ERROR] Maximum distance should be larger or equal to minimum distance";
 }
