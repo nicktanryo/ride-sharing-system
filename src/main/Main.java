@@ -29,7 +29,7 @@ public class Main {
                             inputIsValid = true;
                             break;
                         case 4:
-                            // handleManager();
+                            Manager.run();
                             inputIsValid = true;
                             break;
                         case 5:
