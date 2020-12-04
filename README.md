@@ -1,3 +1,11 @@
+## Group 69
+
+## Nicholas Tanryo - 1155122022
+## Aaron Timothy Suryadinata - 1155113386
+## Ega Putera Sunarja - 1155124015
+
+
+
 ## Move to source file directory
 
 ```
