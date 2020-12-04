@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-    public static scanner = new Scanner(System.in);
+    public static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) throws Exception {
         boolean applicationIsRunning = true;
 
