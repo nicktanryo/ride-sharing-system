@@ -7,8 +7,8 @@ import java.sql.*;
 
 public class Passenger extends Object{
 
-    static Scanner integerScanner = new Scanner(System.in);
-    static Scanner stringScanner = new Scanner(System.in);
+    //static Scanner integerScanner = new Scanner(System.in);
+    //static Scanner stringScanner = new Scanner(System.in);
 
     static int MIN_PASSENGERS = 1;
     static int MAX_PASSENGERS = 8;
@@ -28,7 +28,7 @@ public class Passenger extends Object{
 
             while(!inputIsValid) {
                 try {
-                    int passengerAction = integerScanner.nextInt();
+                    int passengerAction = Main.scanner.nextInt();
     
                     switch(passengerAction) {
                         case 1:
@@ -48,7 +48,7 @@ public class Passenger extends Object{
                     }
                 } catch (Exception err) {
                     System.err.println(Error.INVALID_INPUT);
-                    integerScanner.next();
+                    Main.scanner.next();
                 }
             }
         }
@@ -211,7 +211,7 @@ public class Passenger extends Object{
         while(!inputIsValid) {
             try {
                 System.out.println("Please enter your ID.");
-                id = integerScanner.nextInt();
+                id = Main.scanner.nextInt();
 
                 // check whether ID exist in database
                 String mysqlStatement = String.format(
@@ -228,7 +228,7 @@ public class Passenger extends Object{
                 }
             } catch (InputMismatchException err) {
                 System.err.println(Error.INVALID_INPUT);
-                integerScanner.next();
+                Main.scanner.next();
             } catch(SQLException err) {
                 System.out.println(err.getMessage());
             }
@@ -245,7 +245,7 @@ public class Passenger extends Object{
         while(!inputIsValid) {
             System.out.println("Please enter the number of passengers.");
             try {
-                numberOfPassengers = integerScanner.nextInt();
+                numberOfPassengers = Main.scanner.nextInt();
 
                 if (numberOfPassengers > MAX_PASSENGERS || numberOfPassengers < MIN_PASSENGERS) {
                     System.err.println(Error.INVALID_NUMBER_OF_PASSENGER);
@@ -254,7 +254,7 @@ public class Passenger extends Object{
                 }
             } catch (Exception err) {
                 System.err.println(Error.INVALID_INPUT);
-                integerScanner.next();
+                Main.scanner.next();
             }
         }
 
@@ -269,7 +269,7 @@ public class Passenger extends Object{
 
         while(!inputIsValid) {
             System.out.println("Please enter the start location.");
-            startLocation = stringScanner.nextLine();
+            startLocation = Main.scanner.nextLine();
 
             String mysqlStatement = String.format(
                     "select name " + 
@@ -302,7 +302,7 @@ public class Passenger extends Object{
 
         while(!inputIsValid) {
             System.out.println("Please enter the destination.");
-            destination = stringScanner.nextLine();
+            destination = Main.scanner.nextLine();
 
             String mysqlStatement = String.format(
                     "select name " + 
@@ -335,10 +335,10 @@ public class Passenger extends Object{
 
         while(!inputIsValid) {
             System.out.println("Please enter the model. (Please enter to skip)");
-            model = stringScanner.nextLine();
+            model = Main.scanner.nextLine();
 
             if(model.compareTo("") == 0) {
-                stringScanner = new Scanner(System.in);
+                //stringScanner = new Scanner(System.in);
                 return "";
             } else {
                 // check car model in database
@@ -373,7 +373,7 @@ public class Passenger extends Object{
 
         while(!inputIsValid) {
             System.out.println("Please enter the minimum driving years of the driver. (Please enter to skip)");
-            String passengerInput = stringScanner.nextLine();
+            String passengerInput = Main.scanner.nextLine();
 
             // if passenger does not have any preference
             if (passengerInput.compareTo("") == 0) {
@@ -390,7 +390,7 @@ public class Passenger extends Object{
                     }
                 } catch (NumberFormatException err) {
                     System.err.println(Error.INVALID_INPUT);
-                    stringScanner.next();
+                    Main.scanner.next();
                 }
             }
         }
@@ -423,7 +423,7 @@ public class Passenger extends Object{
         while(!inputIsValid) {
 
             System.out.println("Please enter the start date.");
-            startDate = stringScanner.nextLine();
+            startDate = Main.scanner.nextLine();
 
             if (DateIsValid(startDate)) {
                 inputIsValid = true;
@@ -445,7 +445,7 @@ public class Passenger extends Object{
         while(!inputIsValid) {
 
             System.out.println("Please enter the end date.");
-            endDate = stringScanner.nextLine();
+            endDate = Main.scanner.nextLine();
 
             if (DateIsValid(endDate)) {
                 SimpleDateFormat customDate = new SimpleDateFormat("yyyy-MM-dd");

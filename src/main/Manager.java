@@ -7,8 +7,8 @@ import java.nio.file.Paths;
 public class Manager extends Object {
     
     
-    static Scanner integerScanner = new Scanner(System.in);
-    static Scanner stringScanner = new Scanner(System.in); 
+    //static Scanner integerScanner = new Scanner(System.in);
+    //static Scanner stringScanner = new Scanner(System.in); 
 
     public static void run(){
         boolean managerApplicationIsRunning = true;
@@ -20,7 +20,7 @@ public class Manager extends Object {
                     
             while(!inputIsValid) {
                 try {
-                    int managerAction = integerScanner.nextInt();
+                    int managerAction = Main.scanner.nextInt();
         
                     switch(managerAction) {
                         case 1:
@@ -36,7 +36,7 @@ public class Manager extends Object {
                     }
                 } catch (Exception err) {
                     System.err.println(Error.INVALID_INPUT);
-                    integerScanner.next();
+                    Main.scanner.next();
                 }
             }
         }
@@ -106,11 +106,11 @@ public class Manager extends Object {
         while(!inputIsValid) {
             try {
                 System.out.println("Please enter the " + status + " traveling distance.");
-                distance = integerScanner.nextInt();
+                distance = Main.scanner.nextInt();
                 inputIsValid = true;
             } catch (InputMismatchException err) {
                 System.err.println(Error.INVALID_INPUT);
-                integerScanner.next();
+                Main.scanner.next();
             }
         }
         return distance;

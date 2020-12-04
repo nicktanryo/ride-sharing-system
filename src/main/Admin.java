@@ -4,10 +4,6 @@ import java.io.*;
 import java.nio.file.Paths;
 
 public class Admin extends Object {
-
-    static Scanner integerScanner = new Scanner(System.in);
-    static Scanner stringScanner = new Scanner(System.in);
-
     // main function for admin
     public static void run() {
 
@@ -20,7 +16,7 @@ public class Admin extends Object {
 
             while(!inputIsValid) {
                 try {
-                    int adminAction = integerScanner.nextInt();
+                    int adminAction = Main.scanner.nextInt();
 
                     switch(adminAction) {
                         case 1:
@@ -49,7 +45,7 @@ public class Admin extends Object {
 
                 } catch (Exception err) {
                     System.err.println(Error.INVALID_INPUT);
-                    integerScanner.next();
+                    Main.scanner.next();
                 }
             }
         }
@@ -152,7 +148,7 @@ public class Admin extends Object {
     // load data from a folder containing 5 data files (drivers, vehicles, passengers, taxi_stops, and trips, all in .csv format)
     public static void loadData() {
         System.out.println("Please enter the folder path");
-        String folderPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/" + stringScanner.next();
+        String folderPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/" + Main.scanner.next();
 
         loadPassengersData(folderPath);
         loadTaxiStopsData(folderPath);

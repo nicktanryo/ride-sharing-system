@@ -10,8 +10,8 @@ import java.util.Scanner;
 
 public class Driver extends Object{
 
-    static Scanner integerScanner = new Scanner(System.in);
-    static Scanner stringScanner = new Scanner(System.in);
+    //static Scanner integerScanner = new Scanner(System.in);
+    //static Scanner stringScanner = new Scanner(System.in);
     
     /*******************
      ** MAIN FUNCTION **
@@ -27,7 +27,7 @@ public class Driver extends Object{
 
             while(!inputIsValid) {
                 try {
-                    int driverAction = integerScanner.nextInt();
+                    int driverAction = Main.scanner.nextInt();
 
                     switch(driverAction) {
                         case 1:
@@ -52,7 +52,7 @@ public class Driver extends Object{
 
                 } catch (Exception err) {
                     System.err.println(Error.INVALID_INPUT);
-                    integerScanner.next();
+                    Main.scanner.next();
                 }
             }
         }
@@ -247,7 +247,7 @@ public class Driver extends Object{
 
                 while(!respondIsValid) {
                     System.out.println("Do you wish to finish the trip? [y/n]");
-                    String driverRespond = stringScanner.nextLine().toLowerCase();
+                    String driverRespond = Main.scanner.nextLine().toLowerCase();
 
                     if(driverRespond.compareTo("y") == 0) {
                         Connection connection = DatabaseConnection.connect();
@@ -292,7 +292,7 @@ public class Driver extends Object{
         while(!inputIsValid) {
             try {
                 System.out.println("Please enter your ID.");
-                id = integerScanner.nextInt();
+                id = Main.scanner.nextInt();
 
                 // check whether ID exist in database
                 String mysqlStatement = String.format(
@@ -309,7 +309,7 @@ public class Driver extends Object{
                 }
             } catch (InputMismatchException err) {
                 System.err.println(Error.INVALID_INPUT);
-                integerScanner.next();
+                Main.scanner.next();
             } catch(SQLException err) {
                 err.printStackTrace();
             }
@@ -324,7 +324,7 @@ public class Driver extends Object{
         while(!inputIsValid) {
             try {
                 System.out.println("Please enter the coordinates of your location.");
-                driverLocation = stringScanner.nextLine();
+                driverLocation = Main.scanner.nextLine();
 
                 int spaces = driverLocation.length() - driverLocation.replace(" ", "").length();
                 
@@ -355,12 +355,12 @@ public class Driver extends Object{
         while(!inputIsValid) {
             System.out.println("Please enter the maximum distance from you to passenger.");
             try {
-                maximumDistance = integerScanner.nextInt();
+                maximumDistance = Main.scanner.nextInt();
 
                 inputIsValid = true;
             } catch (InputMismatchException err) {
                 System.err.println(Error.INVALID_INPUT);
-                integerScanner.next();
+                Main.scanner.next();
             }
         }
         return maximumDistance;
@@ -372,7 +372,7 @@ public class Driver extends Object{
         while(!inputIsValid) {
             try {
                 System.out.println("Please enter the request ID.");
-                requestId = integerScanner.nextInt();
+                requestId = Main.scanner.nextInt();
 
                 // check whether ID exist in database
                 String mysqlStatement = String.format(
@@ -389,7 +389,7 @@ public class Driver extends Object{
                 }
             } catch (InputMismatchException err) {
                 System.err.println(Error.INVALID_INPUT);
-                integerScanner.next();
+                Main.scanner.next();
             } catch(SQLException err) {
                 System.err.println(Error.SQL_EXCEPTION);
                 System.err.println(err.getMessage());
