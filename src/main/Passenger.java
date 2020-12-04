@@ -72,29 +72,34 @@ public class Passenger extends Object{
 
         while(!driverFound) {
 
-            int passengerId = getPassengerId();
+            boolean passengerHasOpenRequest = true;
 
-            try {
-                // check whether passenger has made a request before
-                String checkPassengerRequest = String.format("select count(*) from request where passenger_id=%d and taken=false", passengerId);
-                ResultSet numberOfRequest = DatabaseConnection.executeQuery(checkPassengerRequest);
-                numberOfRequest.next();
-                if(numberOfRequest.getInt(1) > 0) {
-                    System.out.println(Error.PASSENGER_HAS_OPEN_REQUEST);
-                    break;
+            int passengerId = getPassengerId();
+            while(passengerHasOpenRequest) {
+                try {
+                    // check whether passenger has made a request before
+                    String checkPassengerRequest = String.format("select count(*) from request where passenger_id=%d and taken=false", passengerId);
+                    ResultSet numberOfRequest = DatabaseConnection.executeQuery(checkPassengerRequest);
+                    numberOfRequest.next();
+                    if(numberOfRequest.getInt(1) > 0) {
+                        System.out.println(Error.PASSENGER_HAS_OPEN_REQUEST);
+                        passengerId = getPassengerId();
+                    } else {
+                        passengerHasOpenRequest = false;
+                    }
+                } catch(Exception e) {
+                    e.printStackTrace();
                 }
-            } catch(Exception e) {
-                e.printStackTrace();
             }
 
             int numberOfPassengers = getNumberOfPassengers();
-            String startLocation = getStartLocation().toLowerCase();
-            String destination = getDestination().toLowerCase();
-            while(destination.compareTo(startLocation) == 0) {
+            String startLocation = getStartLocation();
+            String destination = getDestination();
+            while(destination.toLowerCase().compareTo(startLocation.toLowerCase()) == 0) {
                 System.out.println(Error.SAME_START_LOCATION_AND_DESTIONATION);
-                destination = getDestination().toLowerCase();
+                destination = getDestination();
             }
-            String carModel = getCarModel().toLowerCase();
+            String carModel = getCarModel();
             int drivingYears = getDrivingYears();
             
             // System.out.println("ID                   : " + passengerId );
@@ -125,7 +130,7 @@ public class Passenger extends Object{
                                             "select COUNT(*) " + 
                                             "from driver d, vehicle v " +
                                             "where d.vehicle_id=v.id and d.driving_years >= %d and lower(v.model) regexp \".*%s.*\" and v.seats >=%d", 
-                                            drivingYears, carModel, numberOfPassengers);
+                                            drivingYears, carModel.toLowerCase(), numberOfPassengers);
 
                 ResultSet driver = DatabaseConnection.executeQuery(findDriverStatement);
 
@@ -171,7 +176,7 @@ public class Passenger extends Object{
                 "select t.id, d.name, v.id, v.model, t.start_time, t.end_time, t.fee, t.start_location, t.destination " + 
                 "from trip t, driver d, vehicle v " +
                 "where t.passenger_id=%d and t.driver_id=d.id and d.vehicle_id=v.id and date(t.start_time)>=\"%s\" and date(t.end_time)<=\"%s\" and lower(t.destination)=\"%s\"",
-                id, startDate, endDate, destination
+                id, startDate, endDate, destination.toLowerCase()
             );
 
             ResultSet trips = DatabaseConnection.executeQuery(mysqlStatement);
@@ -264,7 +269,7 @@ public class Passenger extends Object{
 
         while(!inputIsValid) {
             System.out.println("Please enter the start location.");
-            startLocation = stringScanner.nextLine().toLowerCase();
+            startLocation = stringScanner.nextLine();
 
             String mysqlStatement = String.format(
                     "select name " + 
@@ -277,6 +282,8 @@ public class Passenger extends Object{
                 if (!locationInDatabase.isBeforeFirst()){
                     System.err.println(Error.START_LOCATION_NOT_FOUND);
                 } else {
+                    locationInDatabase.next();
+                    startLocation = locationInDatabase.getString(1);
                     inputIsValid = true;
                 }
             } catch (SQLException err) {
@@ -295,7 +302,7 @@ public class Passenger extends Object{
 
         while(!inputIsValid) {
             System.out.println("Please enter the destination.");
-            destination = stringScanner.nextLine().toLowerCase();
+            destination = stringScanner.nextLine();
 
             String mysqlStatement = String.format(
                     "select name " + 
@@ -308,6 +315,8 @@ public class Passenger extends Object{
                 if (!locationInDatabase.isBeforeFirst()){
                     System.out.println(Error.DESTINATION_NOT_FOUND);
                 } else {
+                    locationInDatabase.next();
+                    destination = locationInDatabase.getString(1);
                     inputIsValid = true;
                 }
             } catch (SQLException err) {
@@ -326,7 +335,7 @@ public class Passenger extends Object{
 
         while(!inputIsValid) {
             System.out.println("Please enter the model. (Please enter to skip)");
-            model = stringScanner.nextLine().toLowerCase();
+            model = stringScanner.nextLine();
 
             if(model.compareTo("") == 0) {
                 stringScanner = new Scanner(System.in);
@@ -336,7 +345,7 @@ public class Passenger extends Object{
                 String mysqlStatement = String.format(
                     "select count(*) " + 
                     "from vehicle " + 
-                    "where lower(model) regexp \"%s\" ", model);
+                    "where lower(model) regexp \"%s\" ", model.toLowerCase());
 
                 try {
                     ResultSet modelInDatabase = DatabaseConnection.executeQuery(mysqlStatement);
