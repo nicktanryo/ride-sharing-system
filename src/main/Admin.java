@@ -78,7 +78,7 @@ public class Admin extends Object {
             String numberOfTables = resultSet.getString(1);
 
             if (Integer.parseInt(numberOfTables) > 0) {
-                System.out.println("Process failed! There are existing tables");
+                deleteTablesWithoutPrint();
             } else {
                 // create queries
                 String createDriverTable = "create table driver(id integer unsigned not null auto_increment, name varchar(30) not null, vehicle_id varchar(6) not null, driving_years integer unsigned, primary key(id), foreign key(vehicle_id) references vehicle(id));";
@@ -111,6 +111,10 @@ public class Admin extends Object {
     }
     // delete tables in the database
     public static void deleteTables() {
+        deleteTablesWithoutPrint();
+        System.out.println("Processing...Done! Tables are deleted");
+    }
+    public static void deleteTablesWithoutPrint() {
         try{
 
             // get table names
@@ -139,8 +143,6 @@ public class Admin extends Object {
 
             // enable foreign key checks
             stmt.executeUpdate("set foreign_key_checks=1;");
-
-            System.out.println("Processing...Done! Tables are deleted");
             
         } catch(Exception err) {
             System.out.println(Error.QUERY_FAILURE);
@@ -157,6 +159,7 @@ public class Admin extends Object {
         loadVehiclesData(folderPath);
         loadDriversData(folderPath);
         loadTripsData(folderPath);
+        System.out.println("Processing...Data is loaded!");
     }
     public static void loadPassengersData(String folderPath) {
         String csvFile = folderPath + "/passengers.csv";
@@ -181,7 +184,6 @@ public class Admin extends Object {
                             
                 statement.executeUpdate();
             }
-            System.out.println("Passengers added");
         } catch(IOException e) {
             e.printStackTrace();
         } catch(Exception e) {
@@ -213,7 +215,6 @@ public class Admin extends Object {
                             
                 statement.executeUpdate();
             }
-            System.out.println("Taxi stops added");
         } catch(IOException e) {
             e.printStackTrace();
         } catch(Exception e) {
@@ -245,7 +246,6 @@ public class Admin extends Object {
                             
                 statement.executeUpdate();
             }
-            System.out.println("Vehicles added");
         } catch(IOException e) {
             e.printStackTrace();
         } catch(Exception e) {
@@ -277,7 +277,6 @@ public class Admin extends Object {
                             
                 statement.executeUpdate();
             }
-            System.out.println("Drivers added");
         } catch(IOException e) {
             e.printStackTrace();
         } catch(Exception e) {
@@ -313,7 +312,6 @@ public class Admin extends Object {
                             
                 statement.executeUpdate();
             }
-            System.out.println("Trips added");
         } catch(IOException e) {
             e.printStackTrace();
         } catch(Exception e) {
