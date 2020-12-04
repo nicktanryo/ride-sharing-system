@@ -75,7 +75,7 @@ public class Admin extends Object {
 
             if (Integer.parseInt(numberOfTables) > 0) {
                 deleteTablesWithoutPrint();
-            } else {
+            }
                 // create queries
                 String createDriverTable = "create table driver(id integer unsigned not null auto_increment, name varchar(30) not null, vehicle_id varchar(6) not null, driving_years integer unsigned, primary key(id), foreign key(vehicle_id) references vehicle(id));";
                 String createRequestTable = "create table request(id integer unsigned not null auto_increment, passenger_id integer unsigned, start_location varchar(20) not null, destination varchar(20) not null, model varchar(30) not null, passengers integer unsigned, taken boolean default false, driving_years int unsigned, primary key(id), foreign key(passenger_id) references passenger(id), foreign key(start_location) references taxi_stop(name), foreign key(destination) references taxi_stop(name));";
@@ -96,10 +96,8 @@ public class Admin extends Object {
                 stmt.executeUpdate(createRequestTable);
                 stmt.executeUpdate(createTripTable);
                 
-                
-
                 System.out.println("Processing...Done! Tables are created!");
-            }
+
 
         } catch(Exception err) {
             System.out.println(Error.QUERY_FAILURE);
