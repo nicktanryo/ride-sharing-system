@@ -254,7 +254,6 @@ public class Passenger extends Object{
                 }
             } catch (Exception err) {
                 System.err.println(Error.INVALID_INPUT);
-                Main.scanner.next();
             }
         }
 
